@@ -1,0 +1,73 @@
+.lesson-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.lesson-content {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(52, 211, 153, 0.25) transparent;
+}
+
+.lesson-content::-webkit-scrollbar {
+  width: 3px;
+}
+
+.lesson-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.lesson-content::-webkit-scrollbar-thumb {
+  background: rgba(52, 211, 153, 0.25);
+  border-radius: 999px;
+}
+
+.lesson-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(52, 211, 153, 0.45);
+}
+
+.lesson-video-wrapper {
+  position: relative;
+  width: 100%;
+  max-height: 60vh;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.lesson-video-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 12px;
+}
+
+.interview-messages {
+  max-height: 36vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(52, 211, 153, 0.2) transparent;
+}
+
+.interview-messages::-webkit-scrollbar {
+  width: 3px;
+}
+.interview-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+.interview-messages::-webkit-scrollbar-thumb {
+  background: rgba(52, 211, 153, 0.2);
+  border-radius: 999px;
+}
+
+.quiz-option {
+  transition: all 0.2s ease;
+}
+
+.quiz-option:hover:not(.quiz-selected):not(.quiz-correct):not(.quiz-wrong) {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+}
