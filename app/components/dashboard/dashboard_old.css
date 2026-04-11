@@ -1,0 +1,130 @@
+/* Dashboard component specific styles */
+
+/* Hide scrollbars while allowing scroll (used on the recommended collections row) */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Small fade on the left/right of the scroll row to indicate overflow (optional) */
+.collections-fade-left,
+.collections-fade-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  pointer-events: none;
+}
+.collections-fade-left {
+  left: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.5), transparent);
+}
+.collections-fade-right {
+  right: 0;
+  background: linear-gradient(270deg, rgba(0, 0, 0, 0.5), transparent);
+}
+
+/* Hide the vertical scrollbar for the overall page while retaining scroll behavior */
+html,
+body,
+#__next {
+  scrollbar-width: none; /* Firefox */
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+#__next::-webkit-scrollbar {
+  width: 0px; /* Chrome/Safari */
+  height: 0px;
+}
+
+/* Utility to hide scrollbars on any container while preserving scroll */
+.v-scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.v-scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Dashboard select styling to give dropdown menu a matching dark look */
+.dashboard-select {
+  background: transparent;
+  color: inherit;
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
+  appearance: auto;
+}
+
+/* Try to style option dropdown appearance where supported */
+.dashboard-select option {
+  background-color: rgba(17, 24, 39, 0.98); /* near-gray-900 */
+  color: #e5e7eb; /* gray-200 */
+}
+.dashboard-select option:hover,
+.dashboard-select option:checked {
+  background-color: #297356; /* primary accent */
+  color: #fff;
+}
+
+/* Recommended collection card styles: black bg with backdrop and white outline */
+.recommended-card {
+  /* Use explicit solid dark background per design request */
+  background-color: rgb(20, 20, 20);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
+  backdrop-filter: blur(6px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: none;
+  transition: transform 150ms ease;
+}
+.recommended-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Shared outline for card-like containers (matches recommended-card border) */
+.card-outline {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Hover overlay used for collection cards in the dashboard */
+.dashboard-collection-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 20;
+  border-radius: 0.75rem; /* match rounded-xl */
+  transition: opacity 200ms ease;
+}
+
+/* When the parent group is hovered make overlay visible and interactive */
+.group:hover .dashboard-collection-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Card and column background tokens using color-mix in oklab with rgb fallback */
+:root {
+  /* Primary card background color (use plain rgb as requested) */
+  --card-fallback: rgb(20, 20, 20);
+}
+
+.card-bg {
+  /* Use explicit solid dark background only (no color-mix overlay) */
+  background-color: rgb(20, 20, 20);
+}
+
+.col-bg {
+  /* Two-column background: use solid rgb(20,20,20) as primary color */
+  background-color: rgb(20, 20, 20);
+}
+
