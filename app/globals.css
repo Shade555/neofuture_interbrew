@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+:root {
+  --background: #141414;
+  --foreground: #ededed;
+  --font-serif: "Source Serif 4", serif;
+  --nav-accent: #10b981;
+}
+
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("/fonts/Source_Serif_4/static/SourceSerif4-Regular.ttf")
+    format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("/fonts/Source_Serif_4/static/SourceSerif4-Bold.ttf")
+    format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #141414;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Source Serif 4", serif;
+}
+
+.nav-accent {
+  color: var(--nav-accent);
+}
+
+.nav-icon-tint {
+  filter: brightness(0) saturate(100%) invert(56%) sepia(67%) saturate(580%)
+    hue-rotate(107deg) brightness(95%) contrast(88%);
+}
+
+/* Sidebar: expand on hover and show labels */
+.sidebar .sidebar-expandable {
+  width: 4rem !important; /* match Tailwind w-16 */
+  transition: width 200ms ease-in-out;
+}
+
+.sidebar:hover .sidebar-expandable {
+  width: 14rem !important; /* matches Tailwind w-56 */
+}
+
+/* Labels: visible when sidebar hovered OR when individual link hovered */
+.sidebar:hover .label,
+.group:hover .label {
+  opacity: 1 !important;
+}
+
+.group .label {
+  transition: opacity 200ms;
+}
+
+/* Page-scoped override: disable recommended-card hover lift when wrapper has .no-card-hover */
+.no-card-hover .recommended-card:hover {
+  transform: none !important;
+}
+
+/* Shared recommended card and scrollbar utilities (moved here so pages using the class don't rely on dashboard.css import) */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.recommended-card {
+  background-color: rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
+  backdrop-filter: blur(6px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: none;
+  transition: transform 150ms ease;
+}
+.recommended-card:hover {
+  transform: translateY(-4px);
+}
+
+.card-outline {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Home page scrollbar hide */
+.home-no-scrollbar {
+  overflow: hidden !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.home-no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Hide scrollbar on html element for landing pages */
+html.home-no-scrollbar {
+  overflow: hidden !important;
+}
+
+/* Global thin green scrollbars (vertical + horizontal) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(16, 185, 129, 0.72) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(16, 185, 129, 0.72);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.95);
+}
