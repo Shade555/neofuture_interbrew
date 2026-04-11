@@ -1,0 +1,41 @@
+@startuml InterBrew
+left to right direction
+skinparam packageStyle rectangle
+
+actor User
+actor Admin
+
+rectangle InterBrew {
+  usecase "Dashboard" as UC1
+  usecase "Browse Collections" as UC2
+  usecase "Take Mock Interview" as UC3
+  usecase "Watch Scenario Training" as UC4
+  usecase "View Interview History" as UC5
+  usecase "Learn Module and Solve Problem Sets" as UC7
+  usecase "Solve Challenges" as UC12
+  usecase "Earn Badges & Certs" as UC8
+  usecase "View Analytics" as UC9
+  usecase "Check Leaderboard" as UC13
+  usecase "Manage Collections" as UC10
+  usecase "Monitor System Logs" as UC11
+}
+
+User --> UC1
+User --> UC2
+User --> UC4
+User --> UC5
+User --> UC7
+User --> UC12
+User --> UC13
+
+UC1 --> UC9
+UC2 --> UC3
+
+UC3 --> UC8
+UC7 --> UC8
+UC12 --> UC8
+
+Admin --> UC10
+Admin --> UC11
+
+@enduml

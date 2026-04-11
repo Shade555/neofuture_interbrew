@@ -1,0 +1,47 @@
+sequenceDiagram
+    actor User
+    participant UI as MockInterview UI
+    participant Speech as Web Speech API
+    participant Backend as Next.js<br/>/api/mock_int
+    participant LLM as Groq API
+    participant TTS as Speech Synthesis
+
+    User->>UI: Clicks "Start Interview"
+    UI->>UI: Initialize system prompt<br/>with topic + difficulty
+    
+    UI->>Backend: POST message: "__start__"<br/>+ system prompt
+    Backend->>LLM: Create chat message<br/>with system context
+    LLM->>Backend: Return first question
+    Backend->>UI: Return parsed JSON<br/>{message, end}
+    
+    UI->>UI: Append to history<br/>Display question
+    UI->>TTS: Speak question aloud
+    TTS->>User: Audio output
+    
+    User->>Speech: Click microphone<br/>Start listening
+    User->>User: Say answer
+    Speech->>UI: Return transcript
+    
+    UI->>UI: Append user message<br/>Set status: "Thinking..."
+    UI->>Backend: POST user answer<br/>+ full history + system prompt
+    
+    Backend->>LLM: Send conversation history<br/>to Groq with constraints
+    LLM->>Backend: Return feedback<br/>+ next question<br/>{message, end}
+    Backend->>UI: Parsed response
+    
+    UI->>UI: Append assistant message<br/>to history
+    UI->>TTS: Speak feedback
+    TTS->>User: Audio output
+    UI->>UI: Increment question counter
+    
+    alt Interview Complete
+        LLM->>Backend: Return {end: true}
+        Backend->>UI: Final message
+        UI->>TTS: Speak closing message
+        UI->>UI: Set finishedRef = true
+        UI->>UI: onClose() callback
+        UI-->>User: Close modal
+    else Continue Interview
+        User->>Speech: Click microphone again
+        Speech-->>UI: Loop repeats
+    end

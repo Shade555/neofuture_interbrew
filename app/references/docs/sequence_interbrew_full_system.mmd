@@ -1,0 +1,85 @@
+sequenceDiagram
+    autonumber
+    actor User
+    participant DB as Dashboard
+    participant Collections as Collections
+    participant Scenarios as Scenarios
+    participant Backend as Backend
+    participant AI as Groq API
+    participant Supabase as Supabase
+
+    User->>DB: 1. Opens Dashboard
+    DB->>Supabase: Fetch user data
+    Supabase-->>DB: Return stats & readiness
+    DB-->>User: Display analytics
+
+    User->>Collections: 2. Browse Collections
+    Collections->>Backend: Request topics
+    Backend->>Supabase: Get collections
+    Supabase-->>Backend: Return data
+    Backend-->>Collections: Display topics
+
+    User->>Collections: 3. Select Learning Path
+
+    alt Collections - Mock Interview
+        User->>Collections: Select topic & difficulty
+        Collections->>AI: Generate interview questions
+        AI-->>Collections: Return questions
+        User->>Collections: Answer questions
+        Collections->>AI: Evaluate responses
+        AI-->>Collections: Return feedback & score
+        Collections-->>User: Display interview results
+    else Collections - Problems/Learning
+        User->>Collections: Learn Subject
+        Collections->>Supabase: Fetch Content
+        Supabase-->>Collections: Return Content
+        User->>Collections: View problem
+        User->>Collections: Submit solution
+        Collections->>Backend: Validate answer
+        Backend-->>Collections: Correct/Incorrect result
+        Collections-->>User: Display result & points
+    else Daily Challenges
+        User->>Collections: View daily challenge
+        Collections->>Backend: Get challenge of the day
+        Backend->>Supabase: Fetch challenge
+        Supabase-->>Backend: Return challenge
+        Backend-->>Collections: Display challenge
+        User->>Collections: Solve challenge
+        Collections->>Backend: Validate solution
+        Backend-->>Collections: Award points/streak
+        Collections-->>User: Display reward
+    else Scenario Practice Path
+        User->>Scenarios: Select scenario
+        Scenarios->>Backend: Request module
+        Backend->>Supabase: Get scenario content
+        Supabase-->>Backend: Return content
+        Backend-->>Scenarios: Display module
+        User->>Scenarios: View explanation & video
+        User->>Scenarios: Complete quiz
+        User->>Scenarios: Take mock interview
+        Scenarios->>AI: Send answers
+        AI-->>Scenarios: Return feedback
+        Scenarios-->>User: Display performance
+    end
+
+    Collections->>Backend: 4. Update progress
+    Scenarios->>Backend: Update progress
+    Backend->>Supabase: Save: streak +1, badges, XP
+    Supabase-->>Backend: Confirmed
+    Backend-->>Collections: Show rewards earned
+    Backend-->>Scenarios: Show rewards earned
+    Collections-->>User: Display rewards
+    Scenarios-->>User: Display rewards
+
+    alt View Profile
+        User->>DB: 5. View updated profile
+        DB->>Supabase: Refresh stats
+        Supabase-->>DB: Return updated data
+        DB-->>User: Display readiness & leaderboard
+    else View Leaderboard
+        User->>DB: Check leaderboard
+        DB->>Supabase: Fetch global rankings
+        Supabase-->>DB: Return leaderboard data
+        DB-->>User: Display leaderboard & rankings
+    end
+
