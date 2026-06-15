@@ -1,0 +1,3 @@
+# References
+
+This folder contains reference materials and documentation.
